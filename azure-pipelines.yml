@@ -1,0 +1,56 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: Build
+  jobs:
+   - job: Job
+     displayName: Job
+     continueOnError: true
+     workspace:
+      clean: outputs
+     steps:
+     - script: echo Build Stage 
+       displayName: step 
+
+- stage: Dev
+  dependsOn: Build
+  condition: succeeded('Build')
+  jobs:
+   - job: Job
+     displayName: Job
+     continueOnError: true
+     workspace:
+      clean: outputs
+     steps:
+     - script: echo Dev Stage
+       displayName: step
+
+- stage: QA
+  dependsOn: Dev
+  condition: succeeded('Dev')
+  jobs:
+   - job: Job
+     displayName: Job
+     continueOnError: true
+     workspace:
+      clean: outputs
+     steps:
+     - script: echo QA Stage
+       displayName: step
+
+- stage: Production
+  dependsOn: QA
+  condition: succeeded('QA')
+  jobs:
+   - job: Job
+     displayName: Job
+     continueOnError: true
+     workspace:
+      clean: outputs
+     steps:
+     - script: echo Production Stage
+       displayName: step

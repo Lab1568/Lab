@@ -1,0 +1,53 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: Stage1
+  jobs:
+   - job: Job
+     displayName: Job
+     continueOnError: true
+     workspace:
+      clean: outputs
+     steps:
+     - script: echo Stage1
+       displayName: step 
+
+- stage: Stage2
+  dependsOn: []
+  jobs:
+   - job: Job
+     displayName: Job
+     continueOnError: true
+     workspace:
+      clean: outputs
+     steps:
+     - script: echo Stage2
+       displayName: step
+
+- stage: Stage3
+  dependsOn: []
+  jobs:
+   - job: Job
+     displayName: Job
+     continueOnError: true
+     workspace:
+      clean: outputs
+     steps:
+     - script: echo Stage3
+       displayName: step
+
+- stage: Stage4
+  dependsOn: []
+  jobs:
+   - job: Job
+     displayName: Job
+     continueOnError: true
+     workspace:
+      clean: outputs
+     steps:
+     - script: echo Stage4
+       displayName: step
